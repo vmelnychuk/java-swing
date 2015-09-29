@@ -13,7 +13,12 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
         textPanel = new TextPanel();
         toolbar = new Toolbar();
-        toolbar.setTextPanel(textPanel);
+        toolbar.setStringListener(new StringListener() {
+            @Override
+            public void textEmitted(String text) {
+                textPanel.appendText(text);
+            }
+        });
         add(toolbar, BorderLayout.NORTH);
         add(textPanel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

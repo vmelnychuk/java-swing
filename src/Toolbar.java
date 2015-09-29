@@ -9,7 +9,7 @@ public class Toolbar extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
     private JButton helloButton;
     private JButton goodbyeButton;
-    private TextPanel textPanel;
+    private StringListener textListener;
     public Toolbar() {
         helloButton = new JButton("hello");
         goodbyeButton = new JButton("goodbye");
@@ -19,16 +19,21 @@ public class Toolbar extends JPanel implements ActionListener {
         add(helloButton);
         add(goodbyeButton);
     }
-    public void setTextPanel(TextPanel textPanel) {
-        this.textPanel = textPanel;
+    public void setStringListener(StringListener listener) {
+        this.textListener = listener;
     }
     @Override
     public void actionPerformed(ActionEvent event) {
         JButton clickedButton = (JButton) event.getSource();
         if (clickedButton == helloButton) {
-            textPanel.appendText("Hello\n");
+            if (textListener != null) {
+                textListener.textEmitted("Hello\n");
+            }
+            
         } else if (clickedButton == goodbyeButton) {
-            textPanel.appendText("Goodbye\n");
+            if (textListener != null) {
+                textListener.textEmitted("Goodbye\n");
+            }
         }
     }
 }
